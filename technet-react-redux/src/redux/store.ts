@@ -3,11 +3,16 @@ import { configureStore } from '@reduxjs/toolkit';
 // reducer
 import cartReducer from './feature/cart/cartSlice';
 import filterReducer from './feature/filter/filterSlice';
+import { API } from './api';
 
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
     filter: filterReducer,
+    [API.reducerPath]: API.reducer,
+  },
+  middleware: (getDefaultMiddleware) => {
+    return getDefaultMiddleware().concat(API.middleware);
   },
 });
 
